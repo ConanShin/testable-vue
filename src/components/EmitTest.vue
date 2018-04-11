@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'EmitTest',
   data () {
     return {
       msg: 'Testable Vue Component'

@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import { shallow } from 'vue-test-utils'
-import HelloWorld from '@/components/HelloWorld'
+import EmitTest from '@/components/EmitTest'
 
 describe('HelloWorld.vue', () => {
   let subjectWrapper, subjectInstance
   beforeEach(() => {
-    subjectWrapper = shallow(HelloWorld)
+    subjectWrapper = shallow(EmitTest)
     subjectInstance = subjectWrapper.vm
   })
 
@@ -13,7 +13,7 @@ describe('HelloWorld.vue', () => {
     expect(subjectWrapper.contains('.hello h1.test-class')).toBeTruthy()
   })
 
-  it('should call emit function with parameter', () => {
+  it('should emit "emitTest" when emitTest method is called', () => {
     subjectInstance.emitTest()
 
     expect(subjectWrapper.emitted().emitTest).toBeTruthy()
