@@ -3,20 +3,26 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export const store = new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     name: 'Conan'
   },
 
-  actions: {
-    setNameTo: function (context, newName) {
-      return context.commit('setNameTo', newName)
+  mutations: {
+    setNameTo: (state, newName) => {
+      state.name = newName
     }
   },
 
-  mutations: {
-    setNameTo: function (state, newName) {
-      return state.name = newName
+  getters: {
+    nameStartsWithC: (state) => {
+      return state.name.toLowerCase().startsWith('c') ? 'name starts with c' : 'name does not starts with c'
     }
+  },
+
+  actions: {
+    setNameTo: (context, newName) => context.commit('setNameTo', newName)
   }
 })
+
+export default store

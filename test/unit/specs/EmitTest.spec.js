@@ -1,8 +1,7 @@
-import Vue from 'vue'
-import { shallow } from 'vue-test-utils'
+import { shallow, createLocalVue } from 'vue-test-utils'
 import EmitTest from '@/components/EmitTest'
 
-describe('HelloWorld.vue', () => {
+describe('EmitTest.vue', () => {
   let subjectWrapper, subjectInstance
   beforeEach(() => {
     subjectWrapper = shallow(EmitTest)
@@ -10,7 +9,7 @@ describe('HelloWorld.vue', () => {
   })
 
   it('should render correct contents', () => {
-    expect(subjectWrapper.contains('.hello h1.test-class')).toBeTruthy()
+    expect(subjectWrapper.contains('h1')).toBeTruthy()
   })
 
   it('should emit "emitTest" when emitTest method is called', () => {
