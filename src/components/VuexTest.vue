@@ -4,15 +4,19 @@
     <p>{{ name }}</p>
     <input @keyup.enter='setNameTo'/><button @click='setNameTo'>SET</button>
     <p>{{ nameStartsWithC }}</p>
+    {{msgFromServer}}
   </main>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'VuexTest',
   data () {
     return {
-      msg: 'Vuex Test'
+      msg: 'Vuex Test',
+      msgFromServer: ''
     }
   },
 
@@ -33,6 +37,11 @@ export default {
       newNameField.value = ''
     },
 
+    getMessage: async function () {
+      const response = await axios.get('http://localhost:9000/hello')
+      this.msgFromServer = response.data
+    },
+
     methodInvokingActionNoParam: function () {
       this.$store.dispatch('actionWithoutParameter')
     },
@@ -44,6 +53,10 @@ export default {
     methodInvokingActionTwoParams: function (firstParam, secondParam) {
       this.$store.dispatch('actionWithMultipleParameters', {firstParam, secondParam})
     }
+  },
+
+  created: function () {
+    this.getMessage()
   }
 }
 </script>

@@ -1,19 +1,20 @@
-// For authoring Nightwatch tests, see
-// http://nightwatchjs.org/guide#usage
+const mountebank = require('mountebank-util')
+const stubServer = new mountebank()
 
 module.exports = {
-  'default e2e tests': function (browser) {
-    // automatically uses dev Server port from /config.index.js
-    // default: http://localhost:8080
-    // see nightwatch.conf.js
-    const devServer = browser.globals.devServerURL
+  before: function () {
+    stubServer.addResponse('/hello', 'GET', 'Conan')
+    stubServer.createImposter()
+  },
 
+  after: function () {
+    stubServer.deleteImposter()
+  },
+
+  'default e2e tests': function (browser) {
+    const devServer = browser.globals.devServerURL
     browser
-      .url(devServer)
-      .waitForElementVisible('#app', 5000)
-      .assert.elementPresent('.hello')
-      .assert.containsText('h1', 'Welcome to Your Vue.js App')
-      .assert.elementCount('img', 1)
-      .end()
+    .url(devServer)
+    .end()
   }
 }
