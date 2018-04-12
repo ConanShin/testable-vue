@@ -31,6 +31,18 @@ export default {
       const newName = newNameField.value
       this.$store.dispatch('setNameTo', newName)
       newNameField.value = ''
+    },
+
+    methodInvokingActionNoParam: function () {
+      this.$store.dispatch('actionWithoutParameter')
+    },
+
+    methodInvokingActionOneParam: function (param) {
+      this.$store.dispatch('actionWithParameter', param)
+    },
+
+    methodInvokingActionTwoParams: function (firstParam, secondParam) {
+      this.$store.dispatch('actionWithMultipleParameters', {firstParam, secondParam})
     }
   }
 }

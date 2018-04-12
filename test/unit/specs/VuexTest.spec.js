@@ -1,5 +1,5 @@
 import { shallow } from 'vue-test-utils'
-import MockStoreBuilder from '../MockStoreBuilder'
+import MockStoreBuilder from 'vuex-test-util'
 import realStore from '@/store'
 import VuexTest from '@/components/VuexTest'
 
@@ -39,6 +39,32 @@ describe('VuexTest.vue', () => {
 
     subjectInstance.setNameTo()
 
+    expect(store.actions.setNameTo.mock.calls).toHaveLength(1)
+    expect(store.actions.setNameTo.mock.calls[0][1]).toEqual('New Name')
     expect(store.actions.setNameTo).toBeActionCalledWith("New Name")
+  })
+
+  it('should dispatch action actionWithoutParameter when methodInvokingAction is called without parameter', () => {
+    expect(store.actions.actionWithoutParameter).not.toBeCalled()
+
+    subjectInstance.methodInvokingActionNoParam()
+
+    expect(store.actions.actionWithoutParameter).toBeCalled()
+  })
+
+  it('shoud disptch action actionWithParameter when methodInvokingAction is called with one parameter', () => {
+    expect(store.actions.actionWithParameter).not.toBeCalled()
+
+    subjectInstance.methodInvokingActionOneParam('single parameter')
+
+    expect(store.actions.actionWithParameter).toBeActionCalledWith('single parameter')
+  })
+
+  it('should dispatch action actionWithMultipleParameters when methodInvokingAction is called with multiple parameters', () => {
+    expect(store.actions.actionWithMultipleParameters).not.toBeCalled()
+
+    subjectInstance.methodInvokingActionTwoParams('parameter1', 'parameter2')
+
+    expect(store.actions.actionWithMultipleParameters).toBeActionCalledWith({firstParam: 'parameter1', secondParam: 'parameter2'})
   })
 })

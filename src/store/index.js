@@ -21,7 +21,10 @@ const store = new Vuex.Store({
   },
 
   actions: {
-    setNameTo: (context, newName) => context.commit('setNameTo', newName)
+    setNameTo: (context, newName) => context.commit('setNameTo', newName),
+    actionWithoutParameter: (context) => console.log("action is called"),
+    actionWithParameter: (context, param) => console.log("action is called with parameter - " + param),
+    actionWithMultipleParameters: (context, params) => console.log("action is called with two parameters - " + params.firstParam + ", " + params.secondParam)
   }
 })
 
